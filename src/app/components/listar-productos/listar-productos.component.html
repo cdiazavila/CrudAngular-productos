@@ -5,7 +5,7 @@
                 <div class="card-body text-center">
                     <span class="titulo">LISTADO DE PRODUCTOS</span>
                     <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
-                    <table class="table table-striped mt-3">
+                    <table *ngIf="listProductos.length>0" class="table table-striped mt-3">
                         <thead>
                           <tr>
                             <th scope="col">producto</th>
@@ -16,16 +16,15 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th>1</th>
-                            <td>cocacola</td>
-                            <td>Bebida</td>
-                            <td>colombia</td>
-                            <td>2</td>
+                          <tr  *ngFor="let item of listProductos">
+                            <td>{{item.nombre}}</td>
+                            <td>{{item.categoria}}</td>
+                            <td>{{item.ubicacion}}</td>
+                            <td>{{item.precio}}</td>
                             <td>
                             
-                              <i class="fas fa-edit text-primary"></i>
-                              <i class="fas fa-trash text-danger"></i>
+                              <i [routerLink]="['/editar-producto',item._id]" class="fas fa-edit text-primary"></i>
+                              <i (click)="eliminarProducto(item._id)" class="fas fa-trash text-danger"></i>
                              
                             </td>
                           </tr>
@@ -33,6 +32,7 @@
                          
                         </tbody>
                       </table>
+                      <h5 style="text-align: start; margin-top: 10px; margin-left: 180px;" *ngIf="listProductos.length== 0">No hay productos para mostrar</h5>
                 </div>
             </div>
         </div>
